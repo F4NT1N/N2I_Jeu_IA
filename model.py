@@ -42,9 +42,10 @@ class model:
             # si la nouvelle position est dans les pos possibles, faire l'action demandée
             else:
                 if type(self.selected_piece).__name__() != "Piece_explorator":
-                    if (x,y) in self.pieces_p2 if self.round % 2 == 0 else self.pieces_p1: 
-                        # si on clique sur une piece adverse dans les pos possibles, on utilise la capacité
-                        self.use_ability()
+                    for p in self.pieces_p2 if self.round % 2 == 0 else self.pieces_p1:
+                        if (p.pos_x, p.pos_y) == (x,y) :
+                            # si on clique sur une piece adverse dans les pos possibles, on utilise la capacité
+                            self.use_ability(p)
                     else:
                         self.selected_piece.pos_x = x
                         self.selected_piece.pox_y = y
@@ -81,13 +82,13 @@ class model:
         
 
 
-    def use_ability(self):
+    def use_ability(self, piece):
         if self.selected_piece != None:
             match type(self.selected_piece).__name__:
                 case "Piece_protector":
-                    expression_1
+                    piece.neutralized = 2
                 case "Piece_destructor":
-                    expression_3
+                    piece.to_base()
 
     def next(self):
         round += 1
