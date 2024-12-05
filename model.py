@@ -49,9 +49,61 @@ class model:
 
     def next(self):
         round += 1
-        # modifier les valeurs de neutralized des joueurs et de reset des zones en fonctions de la position des joueurs
-        # renvoie un booléen si la partie est terminée ou pas.
-
-
-
+        if round > 20 : #partie terminée
+            return True
         
+        # modifier les valeurs de neutralized des pions
+        for piece in self.pieces_p1 :
+            zone = self.piece_on_zone(piece)
+            if piece.neutralized > 0 :
+                if piece.neutralized == 2 and zone != None :
+                    zone.remain = 3
+                piece.neutralized-=1
+            if piece.neutralized < 2 and zone != None :
+                if zone.remain > 0 :
+                    zone.remain -= 1
+                else :
+                    if piece.player_id == 1 :
+                        self.player1.points += 5
+                    else :
+                        self.player2.points += 5
+                    zone.remain = 3
+                    self.replace_object(zone)
+
+        # renvoie un booléen si la partie est terminée ou pas
+        return False
+    
+    def replace_object (self, object):
+        all_cases = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7),
+                     (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7),
+                     (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7),
+                     (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7),
+                     (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7),
+                     (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7)]
+        for piece in self.pieces_p1 :
+            if (piece.pos_x, piece.pos_y) in all_cases :
+                all_cases.remove((piece.pos_x, piece.pos_y))
+        for piece in self.pieces_p2 :
+            if (piece.pos_x, piece.pos_y) in all_cases :
+                all_cases.remove((piece.pos_x, piece.pos_y))
+        for piece in self.zones :
+            if (piece.pos_x, piece.pos_y) in all_cases :
+                all_cases.remove((piece.pos_x, piece.pos_y))
+        for piece in self.resources :
+            if (piece.pos_x, piece.pos_y) in all_cases :
+                all_cases.remove((piece.pos_x, piece.pos_y))
+        
+        new_case = random.randint(len(all_cases)-1)
+        object.pos_x = all_cases[new_case][0]
+        object.pos_y = all_cases[new_case][1]
+
+
+    def piece_on_zone(self, piece : Piece):
+        if (piece.pos_x, piece.pos_y) == (self.zones[0].pos_x, self.zones[0].pos_y) :
+            return self.zone[0]
+        elif (piece.pos_x, piece.pos_y) == (self.zones[1].pos_x, self.zones[1].pos_y) :
+            return self.zone[1]
+        elif (piece.pos_x, piece.pos_y) == (self.zones[2].pos_x, self.zones[2].pos_y) :
+            return self.zone[2]
+        else :
+            return None
