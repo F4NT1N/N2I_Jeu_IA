@@ -23,19 +23,31 @@ class model:
     # choisir la case pour obtenir les coups possibles de la piece
     def case_click(self, x, y):
 
-        # si la case cliquée possède une pièce, changer la piece selectionné.
+        # si la case cliquée possède une pièce, changer la piece selectionné. et return ses positions possibles
         
         if self.selected_piece != None:
             # créer une liste de positions possibles de la pièces
-            # si la nouvelle position n'est pas dans les positions possibles, mettre la pièce sélectionnée à None
-            # si la nouvelle positoin est dans les pos possibles, déplacer la pièce
+            # si la nouvelle position n'est pas dans les positions possibles, mettre la pièce sélectionnée à None et vider positions possibles 
+            # si la nouvelle positoin est dans les pos possibles, déplacer la pièce puis vérifier si une piece 
+            
             pass
-
-        return [] # liste de nouvelle position possible de la pièce
+        
+        return [] # renvoyer les positions possibles
+        
 
 
     def use_ability(self):
+        if self.selected_piece != None:
+            # faire l'action en fonction de la pièce sélectionnée. 
+            pass
+
         pass
+
+    def next(self):
+        round += 1
+        # modifier les valeurs de neutralized des joueurs et de reset des zones en fonctions de la position des joueurs
+        # renvoie un booléen si la partie est terminée ou pas.
+
 
 
         
