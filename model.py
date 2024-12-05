@@ -41,10 +41,11 @@ class model:
 
     def use_ability(self):
         if self.selected_piece != None:
-            # faire l'action en fonction de la pièce sélectionnée. 
-            pass
-
-        pass
+            match type(self.selected_piece).__name__:
+                case "Piece_protector":
+                    expression_1
+                case "Piece_destructor":
+                    expression_3
 
     def next(self):
         round += 1
