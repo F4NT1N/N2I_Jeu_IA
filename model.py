@@ -74,28 +74,23 @@ class model:
         return False
     
     def replace_object (self, object):
-        all_cases = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7),
-                     (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7),
-                     (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7),
-                     (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7),
-                     (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7),
-                     (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7)]
+        all_coordinates = [(x, y) for x in range(GRID_WIDTH) for y in range(1, GRID_HEIGHT-1)]
         for piece in self.pieces_p1 :
-            if (piece.pos_x, piece.pos_y) in all_cases :
-                all_cases.remove((piece.pos_x, piece.pos_y))
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
         for piece in self.pieces_p2 :
-            if (piece.pos_x, piece.pos_y) in all_cases :
-                all_cases.remove((piece.pos_x, piece.pos_y))
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
         for piece in self.zones :
-            if (piece.pos_x, piece.pos_y) in all_cases :
-                all_cases.remove((piece.pos_x, piece.pos_y))
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
         for piece in self.resources :
-            if (piece.pos_x, piece.pos_y) in all_cases :
-                all_cases.remove((piece.pos_x, piece.pos_y))
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
         
-        new_case = random.randint(len(all_cases)-1)
-        object.pos_x = all_cases[new_case][0]
-        object.pos_y = all_cases[new_case][1]
+        new_coordinate  = random.randint(len(all_coordinates)-1)
+        object.pos_x = all_coordinates[new_coordinate ][0]
+        object.pos_y = all_coordinates[new_coordinate ][1]
 
 
     def piece_on_zone(self, piece : Piece):
