@@ -83,16 +83,64 @@ class model:
 
     def use_ability(self):
         if self.selected_piece != None:
-            # faire l'action en fonction de la pièce sélectionnée. 
-            pass
-
-        pass
+            match type(self.selected_piece).__name__:
+                case "Piece_protector":
+                    expression_1
+                case "Piece_destructor":
+                    expression_3
 
     def next(self):
         round += 1
-        # modifier les valeurs de neutralized des joueurs et de reset des zones en fonctions de la position des joueurs
-        # renvoie un booléen si la partie est terminée ou pas.
-
-
-
+        if round > 20 : #partie terminée
+            return True
         
+        # modifier les valeurs de neutralized des pions
+        for piece in self.pieces_p1 :
+            zone = self.piece_on_zone(piece)
+            if piece.neutralized > 0 :
+                if piece.neutralized == 2 and zone != None :
+                    zone.remain = 3
+                piece.neutralized-=1
+            if piece.neutralized < 2 and zone != None :
+                if zone.remain > 0 :
+                    zone.remain -= 1
+                else :
+                    if piece.player_id == 1 :
+                        self.player1.points += 5
+                    else :
+                        self.player2.points += 5
+                    zone.remain = 3
+                    self.replace_object(zone)
+
+        # renvoie un booléen si la partie est terminée ou pas
+        return False
+    
+    def replace_object (self, object):
+        all_coordinates = [(x, y) for x in range(GRID_WIDTH) for y in range(1, GRID_HEIGHT-1)]
+        for piece in self.pieces_p1 :
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
+        for piece in self.pieces_p2 :
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
+        for piece in self.zones :
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
+        for piece in self.resources :
+            if (piece.pos_x, piece.pos_y) in all_coordinates :
+                all_coordinates.remove((piece.pos_x, piece.pos_y))
+        
+        new_coordinate  = random.randint(len(all_coordinates)-1)
+        object.pos_x = all_coordinates[new_coordinate ][0]
+        object.pos_y = all_coordinates[new_coordinate ][1]
+
+
+    def piece_on_zone(self, piece : Piece):
+        if (piece.pos_x, piece.pos_y) == (self.zones[0].pos_x, self.zones[0].pos_y) :
+            return self.zone[0]
+        elif (piece.pos_x, piece.pos_y) == (self.zones[1].pos_x, self.zones[1].pos_y) :
+            return self.zone[1]
+        elif (piece.pos_x, piece.pos_y) == (self.zones[2].pos_x, self.zones[2].pos_y) :
+            return self.zone[2]
+        else :
+            return None

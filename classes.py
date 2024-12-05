@@ -1,9 +1,9 @@
 class Piece:
-    def __init__(self, x : int, y : int, id_joueur : int):
+    def __init__(self, x : int, y : int, player_id : int):
         self.pos_x = x
         self.pos_y = y
-        self.id_joueur = id_joueur
-        self.neutralized = False
+        self.player_id = player_id
+        self.neutralized = 0
 
 
 class Piece_protector(Piece):
