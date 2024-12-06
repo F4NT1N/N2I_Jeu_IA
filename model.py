@@ -145,3 +145,4 @@ class model:
             return self.zone[2]
         else :
             return None
+        

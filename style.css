@@ -57,3 +57,10 @@ body.dark {
 .reachable {
   border: 2px dashed red; /* Exemple de style pour une case atteignable */
 }
+
+.zone {
+  background-color: rgba(0, 255, 0, 0.5);
+}
+.ressource {
+  background-color: rgba(255, 255, 0, 0.5);
+}
