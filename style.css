@@ -1,66 +1,18 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 1.1em;
 }
-
-body {
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f7f7f7;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-body.dark {
-  background: #2e2e2e;
-  color: white;
-}
-
-.game-container {
+td{
+  background-color: #ccc;
+  padding: 10px 30px 10px 30px;
+  border-radius: 0.2em;
   text-align: center;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s ease;
+  cursor: default;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(6, 60px);
-  grid-template-rows: repeat(8, 60px);
-  gap: 5px;
-  margin-bottom: 20px;
-}
-
-.cell {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #d5dafc;
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.cell:nth-child(-n+6) {
-  background-color: #3b7cff; /* Couleur pour la première ligne */
-}
-
-.cell:nth-last-child(-n+6) {
-  background-color: #3b7cff; /* Couleur pour la dernière ligne */
-}
-.reachable {
-  border: 2px dashed red; /* Exemple de style pour une case atteignable */
-}
-
-.zone {
-  background-color: rgba(0, 255, 0, 0.5);
-}
-.ressource {
-  background-color: rgba(255, 255, 0, 0.5);
-}
+#result{
+  border-color: #000;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 30px 10px 30px;
+  text-align: right;
